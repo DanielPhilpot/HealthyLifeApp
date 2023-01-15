@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AddScheduleItemServlet
+ * Servlet implementation class AddScheduleItemServlet Test
  */
 @WebServlet("/AddScheduleItemServlet")
 public class AddScheduleItemServlet extends HttpServlet {
