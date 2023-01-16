@@ -25,43 +25,53 @@ public class Controller extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("A");
 		// Check what action the user has selected...
 		String action = request.getPathInfo();
 		System.out.println("action is " + action);
-				
+		
+		HttpSession session = request.getSession();
 		
 		if (action.equals("/login")) {
-			
-			HttpSession session = request.getSession();
 			
 			session.setAttribute("username", request.getParameter("username"));
 			
 			response.sendRedirect(url + "welcome.jsp");
 			
 		} else if(action.equals("/logout")) {
+						
+			session.setAttribute("username", null);
 			
-			//write logout code 
+			session.setAttribute("sex", null);
+			
+			response.sendRedirect(url + "logout.jsp");
 			
 		} else if(action.equals("/signup")) {
+					
+			session.setAttribute("username", request.getParameter("username"));
 			
-			//write code
+			session.setAttribute("sex", request.getParameter("sex"));
+			
+			response.sendRedirect(url + "welcome.jsp");
 			
 		} else if(action.equals("/addTarget")) {
 			
 			//write code
+			response.sendRedirect(url + "charts&Progress.jsp");
 			
 		} else if(action.equals("/recordMeal")) {
 			
 			//write code
+			response.sendRedirect(url + "mealHistory.jsp");
 			
 		} else if(action.equals("/setDietReq")) {
 			
 			//write code
+			response.sendRedirect(url + "foodSettings.jsp");
 			
 		} else if(action.equals("/addScheduleItem")) {
 			
 			//write code
+			response.sendRedirect(url + "scheduleBuilder.jsp");
 			
 		}
 			

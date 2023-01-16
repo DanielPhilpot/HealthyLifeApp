@@ -83,7 +83,7 @@
         			<li>
         				<%
         					if(session.getAttribute("username") != null){
-        						out.println("<form action = 'LogoutServlet' method = 'post'><input type='submit' value='Log Out'/></form>");
+        						out.println("<form method='POST' action='http://localhost:8080/Healthy-Life-Git/controller/logout'><input type='submit' value='Log Out'/></form>");
     						} else {
     							out.println("<a href='login.jsp'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>");
     						}

@@ -117,7 +117,7 @@
 	<div style="text-align: center;">
 		<h1>Login to Healthy Life</h1>
 		<br>
-		<form method="POST" action="http://localhost:8080/Healthy-Life-Git/controller/login">
+		<form method="POST" action="http://localhost:8080/Healthy-Life-Git/controller/login" onsubmit="return validateForm()">
 		<table class="center">
 			<tbody>
 				<tr class="loginRow">

@@ -125,7 +125,7 @@
 	<div style="text-align: center;">
 		<h1>Sign up to Healthy Life</h1>
 		<br>
-		<form name="signUpForm" action = "SignUpServlet" onsubmit="return validateForm()" method = "post">
+		<form method="POST" action="http://localhost:8080/Healthy-Life-Git/controller/signup" onsubmit="return validateForm()">
 		<table class="center">
 			<tbody>
 				<tr class="loginRow">
