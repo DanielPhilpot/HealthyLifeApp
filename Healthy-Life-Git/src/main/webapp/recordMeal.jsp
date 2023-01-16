@@ -126,7 +126,7 @@
 	<br>
   		<div class="row">
   			<div class="col-sm-4">
-  				<form name="meal" action = "RecordMealServlet" onsubmit="return validateMeal()" method = "post">
+  				<form method="POST" action="http://localhost:8080/Healthy-Life-Git/controller/recordMeal" onsubmit="return validateMeal()">
   					<table>
   						<tbody>
   							<tr class="loginRow">

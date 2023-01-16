@@ -131,7 +131,7 @@
   			<div class="col-sm-4">
   				<h3 >Add a exercise to schedule</h3>
   				<br>
-  				<form name="mealSch" action = "AddScheduleItemServlet" onsubmit="return validateAddActivity()" method = "post">
+  				<form form method="POST" action="http://localhost:8080/Healthy-Life-Git/controller/addScheduleItem" onsubmit="return validateAddActivity()">
   					<table>
   						<tbody>
   							<tr class="loginRow">
@@ -577,7 +577,7 @@
   			</div>
   			<div class="col-sm-6">
   				<h3>Targets</h3>
-  				<form name="foodTargets" action = "FoodTargetsServlet" onsubmit="return validateDistances()" method = "post">
+  				<form method="POST" action="http://localhost:8080/Healthy-Life-Git/controller/addTarget" onsubmit="return validateDistances()">
   					<table>
   						<tbody>
   							<tr class="loginRow">	
