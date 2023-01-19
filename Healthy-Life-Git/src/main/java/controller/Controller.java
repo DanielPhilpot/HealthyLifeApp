@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.login;
+
 /**
  * Servlet implementation class Controller
  */
@@ -33,9 +35,22 @@ public class Controller extends HttpServlet {
 		
 		if (action.equals("/login")) {
 			
-			session.setAttribute("username", request.getParameter("username"));
+			login login = new login();
 			
-			response.sendRedirect(url + "welcome.jsp");
+			boolean isValid = login.validateUser(request.getParameter("username"), request.getParameter("password"));
+			
+			if(isValid) {
+				
+				session.setAttribute("username", request.getParameter("username"));			
+				response.sendRedirect(url + "welcome.jsp");
+				
+			} else {
+				
+				response.sendRedirect(url + "login.jsp");
+				
+				//TODO add error message
+				
+			}
 			
 		} else if(action.equals("/logout")) {
 						
