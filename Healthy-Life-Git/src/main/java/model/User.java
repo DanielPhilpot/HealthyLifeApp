@@ -124,6 +124,14 @@ public class User {
         }
 	}
 	
+	public void logOut() {
+		username = null;
+		sex = null;
+		gymDistance = 0;
+		parkDistance = 0; 
+		this.setDietReqs("");
+	}
+	
 	public String getUsername() {
 		return username;
 	}

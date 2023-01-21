@@ -57,10 +57,10 @@ public class Controller extends HttpServlet {
 			
 		} else if(action.equals("/logout")) {
 						
-			session.setAttribute("username", null);
-		
-			session.setAttribute("sex", null);
 			
+			session.setAttribute("username", null);
+			session.setAttribute("sex", null);
+			currentUser.logOut();
 			response.sendRedirect(url + "logout.jsp");
 			
 		} else if(action.equals("/signup")) {
