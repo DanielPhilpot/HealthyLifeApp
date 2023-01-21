@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.login;
+import model.User;
 
 /**
  * Servlet implementation class Controller
@@ -20,6 +20,7 @@ import model.login;
 public class Controller extends HttpServlet {
 	
 	private String url = "http://localhost:8080/Healthy-Life-Git/";
+	private User currentUser; 
 
 	public void init() {     
         // TODO Write Constructor
@@ -32,16 +33,18 @@ public class Controller extends HttpServlet {
 		System.out.println("action is " + action);
 		
 		HttpSession session = request.getSession();
+		currentUser = (User) session.getAttribute("user");
 		
 		if (action.equals("/login")) {
 			
-			login login = new login();
+			//currentUser = (User) session.getAttribute("user");
 			
-			boolean isValid = login.validateUser(request.getParameter("username"), request.getParameter("password"));
+			boolean isValid = currentUser.validateUser(request.getParameter("username"), request.getParameter("password"));
 			
 			if(isValid) {
 				
-				session.setAttribute("username", request.getParameter("username"));			
+				session.setAttribute("username", request.getParameter("username"));		
+				session.setAttribute("sex", currentUser.getSex());
 				response.sendRedirect(url + "welcome.jsp");
 				
 			} else {
@@ -80,8 +83,23 @@ public class Controller extends HttpServlet {
 			
 		} else if(action.equals("/setDietReq")) {
 			
-			//write code
-			response.sendRedirect(url + "foodSettings.jsp");
+			if(currentUser.getUsername() != null) {
+				String V; if(request.getParameter("Vegetarian") != null){V = "V,";} else {V="";};
+				String VV; if(request.getParameter("Vegan") != null){VV = "VV,";}else{VV = "";};
+				String L; if(request.getParameter("LacInt") != null){L = "L,";}else{L = "";};
+				String G; if(request.getParameter("GlucInt") != null){G = "G,";}else{G = "";};
+				String N; if(request.getParameter("NutAlg") != null){N = "N,";}else{N = "";};
+				String K; if(request.getParameter("Kosher") != null){K = "K,";}else{K = "";};
+				String H; if(request.getParameter("Halal") != null){H = "H";}else{H = "";};
+			
+				currentUser.submitDietReqs(V+VV+L+G+N+K+H);	
+				response.sendRedirect(url + "foodSettings.jsp");
+				
+			} else {
+				response.sendRedirect(url + "foodSettings.jsp");
+			}
+		} else if(action.equals("/setDietDistance")) {
+			response.sendRedirect(url + "exerciseSettings.jsp");
 			
 		} else if(action.equals("/addScheduleItem")) {
 			
