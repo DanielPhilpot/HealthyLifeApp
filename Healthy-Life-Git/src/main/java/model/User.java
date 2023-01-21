@@ -99,6 +99,31 @@ public class User {
 		return false;
 	}
 	
+	public String signUp(String newUsername, String newPassword, String newSex) {
+		String sex; if(newSex.equals("Male")) {sex = "m";} else {sex = "f";};
+		System.out.println(newSex);
+		System.out.println(sex);
+		
+		try {
+			String update = "INSERT INTO users VALUES (NULL,'" + newUsername + "', '" + newPassword + "', '" + sex + "',null,null,null)";
+			System.out.println(update);
+			
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(update);
+            
+            this.username = newUsername;
+            this.sex = sex;
+            
+            return "Sucess";
+            
+		} catch(SQLException e) {
+			System.out.println("Exception is ;"+e + ": message is " + e.getMessage());
+			if(e.getMessage().contains("Duplicate entry")) {
+				return "Username in use";
+			} return "Other Error";
+        }
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -117,8 +142,43 @@ public class User {
 		return gymDistance;
 	}
 	
+	public void setGymDistance(String hours, String mins) {
+		int distance = Integer.parseInt(mins) + Integer.parseInt(hours) * 60;
+		
+		try {
+			String update = "UPDATE healthy_life.users SET gymDistance = '" + distance + "' WHERE username = '" + username + "'";
+			System.out.println(update);
+			
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(update);
+            
+            gymDistance = distance;
+            
+		} catch(SQLException e) {
+			System.out.println("Exception is ;"+e + ": message is " + e.getMessage());
+        }
+		
+	}
+	
 	public int getParkDistance() {
 		return parkDistance;
+	}
+	
+	public void setParkDistance(String hours, String mins) {
+		int distance = Integer.parseInt(mins) + Integer.parseInt(hours) * 60;
+		
+		try {
+			String update = "UPDATE healthy_life.users SET parkDistance = '" + distance + "' WHERE username = '" + username + "'";
+			System.out.println(update);
+			
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(update);
+            
+            parkDistance = distance;
+            
+		} catch(SQLException e) {
+			System.out.println("Exception is ;"+e + ": message is " + e.getMessage());
+        }
 	}
 	
 	

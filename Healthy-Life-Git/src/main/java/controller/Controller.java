@@ -58,18 +58,24 @@ public class Controller extends HttpServlet {
 		} else if(action.equals("/logout")) {
 						
 			session.setAttribute("username", null);
-			
+		
 			session.setAttribute("sex", null);
 			
 			response.sendRedirect(url + "logout.jsp");
 			
 		} else if(action.equals("/signup")) {
 					
-			session.setAttribute("username", request.getParameter("username"));
+			String signUp = currentUser.signUp(request.getParameter("username"), request.getParameter("password"), request.getParameter("sex"));				
+			System.out.println(signUp);
 			
-			session.setAttribute("sex", request.getParameter("sex"));
-			
-			response.sendRedirect(url + "welcome.jsp");
+			if (signUp == "Sucess") {
+				session.setAttribute("username", currentUser.getUsername());
+				session.setAttribute("sex", currentUser.getSex());
+				
+				response.sendRedirect(url + "welcome.jsp");
+			} else {
+				response.sendRedirect(url + "signUp.jsp");
+			}
 			
 		} else if(action.equals("/addTarget")) {
 			
@@ -98,8 +104,18 @@ public class Controller extends HttpServlet {
 			} else {
 				response.sendRedirect(url + "foodSettings.jsp");
 			}
-		} else if(action.equals("/setDietDistance")) {
-			response.sendRedirect(url + "exerciseSettings.jsp");
+		} else if(action.equals("/setDistance")) {
+			
+			if(currentUser.getUsername() != null) {
+				currentUser.setGymDistance(request.getParameter("gyDiHR"), request.getParameter("gyDiMi"));
+				currentUser.setParkDistance(request.getParameter("pkDiHR"), request.getParameter("pkDiMi"));
+				
+				response.sendRedirect(url + "exerciseSettings.jsp");
+				
+			} else {
+			
+				response.sendRedirect(url + "exerciseSettings.jsp");
+			}
 			
 		} else if(action.equals("/addScheduleItem")) {
 			
