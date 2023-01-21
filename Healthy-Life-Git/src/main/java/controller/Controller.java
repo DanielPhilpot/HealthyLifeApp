@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Event;
+import model.Meal;
 import model.User;
 
 /**
@@ -37,8 +39,6 @@ public class Controller extends HttpServlet {
 		
 		if (action.equals("/login")) {
 			
-			//currentUser = (User) session.getAttribute("user");
-			
 			boolean isValid = currentUser.validateUser(request.getParameter("username"), request.getParameter("password"));
 			
 			if(isValid) {
@@ -57,7 +57,6 @@ public class Controller extends HttpServlet {
 			
 		} else if(action.equals("/logout")) {
 						
-			
 			session.setAttribute("username", null);
 			session.setAttribute("sex", null);
 			currentUser.logOut();
@@ -84,7 +83,21 @@ public class Controller extends HttpServlet {
 			
 		} else if(action.equals("/recordMeal")) {
 			
-			//write code
+			Meal meal = new Meal();
+			String mealDateTime = request.getParameter("mealDate") + " " + request.getParameter("mealTime") + ":00" ;
+			int eventId= meal.setEventProperties(currentUser.getUsername(), mealDateTime);
+			
+			
+			meal.setEventSpecificProperties(
+					eventId, request.getParameter("mealTitle"), request.getParameter("mealDesc"), 
+					request.getParameter("mealLoc"), request.getParameter("type"), request.getParameter("mealWeight"), 
+					request.getParameter("mealCal"), request.getParameter("f&v"), request.getParameter("carb"), 
+					request.getParameter("protein"), request.getParameter("dairy"), request.getParameter("o&s"), 
+					request.getParameter("jF")
+			);
+			
+			//System.out.println(mealDateTime);			
+			
 			response.sendRedirect(url + "mealHistory.jsp");
 			
 		} else if(action.equals("/setDietReq")) {
@@ -104,6 +117,7 @@ public class Controller extends HttpServlet {
 			} else {
 				response.sendRedirect(url + "foodSettings.jsp");
 			}
+			
 		} else if(action.equals("/setDistance")) {
 			
 			if(currentUser.getUsername() != null) {
@@ -122,6 +136,9 @@ public class Controller extends HttpServlet {
 			//write code
 			response.sendRedirect(url + "scheduleBuilder.jsp");
 			
+		} else if(action.equals("/mealHistory")) {
+			currentUser.getUserMeals();
+			response.sendRedirect(url + "mealHistory.jsp");	
 		}
 			
 

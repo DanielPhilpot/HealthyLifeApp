@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.sql.ResultSet;
 
 public class User {
@@ -24,12 +25,16 @@ public class User {
 	private int gymDistance;
 	private int parkDistance;
 	
+	private HashMap <String, Meal> meals;
+	
 	
 	String connectionURL = "jdbc:mysql://localhost:3306/healthy_life";
 	
 	public User(){
 		try {
-
+			
+			meals = new HashMap<String, Meal>();
+			
             // Load the database driver
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -312,5 +317,57 @@ public class User {
 		} else {
 			return false;
 		}
+	}
+	
+	
+	
+	
+	//-------------Get Events code-----------------------
+	
+	public HashMap<String, Meal> getMeals() {
+		return meals;
+	}
+	
+	public void getUserMeals() {
+		try {
+			String query = "SELECT * FROM healthy_life.events WHERE username = '"+ username + "' AND eventType = 'meal'";
+			System.out.println(query);
+			
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+
+            while(rs.next()) {
+            	Meal m = new Meal();
+            	m.collectEventProperties(rs.getInt(1), rs.getString(3));
+            		
+            	meals.put(rs.getString(1), m);
+            	
+            	String query2 = "SELECT * FROM healthy_life.meals WHERE eventId = '"+ rs.getInt(1) + "'";
+    			System.out.println(query);
+    			
+    			Statement stmt2 = connection.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(query2);
+    			
+                if(rs2.next()) {
+                	m.setTitle(rs2.getString(3));
+                	m.setDescription(rs2.getString(4));
+                	m.setLocation(rs2.getString(5));
+                	m.setMealType(rs2.getString(6));
+                	m.setWeight(rs2.getString(7));
+                	m.setCalories(rs2.getString(8));
+                	m.setFv(rs2.getString(9));
+                	m.setCarbs(rs2.getString(10));
+                	m.setProtein(rs2.getString(11));
+                	m.setDairy(rs2.getString(12));
+                	m.setOils(rs2.getString(13));
+                	m.setJunk(rs2.getString(14));
+                }
+
+            }
+           } catch(SQLException e) {
+               System.out.println("Exception is ;"+e + ": message is " + e.getMessage());
+           }
+   		
 	}
 }

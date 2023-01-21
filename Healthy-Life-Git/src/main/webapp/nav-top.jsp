@@ -17,7 +17,7 @@
        	 				<ul class="dropdown-menu">
           					<li><a href="foodSettings.jsp">Food Settings</a></li>
           					<li><a href="recordMeal.jsp">Record a Meal</a></li>
-          					<li><a href="mealHistory.jsp">Meal History</a></li>
+          					<li><a href="http://localhost:8080/Healthy-Life-Git/controller/mealHistory">Meal History</a></li>
         				</ul>
      				</li>
      				<li class="dropdown">
