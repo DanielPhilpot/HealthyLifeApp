@@ -21,7 +21,7 @@ public class login {
 
             // Get a Connection to the database
             // TODO 1 put in your own password.
-            connection = DriverManager.getConnection(connectionURL, "root", "#Bebo123");
+            connection = DriverManager.getConnection(connectionURL, "root", "INPUT PASSWORD HERE");
             
             }catch(Exception e){
 
