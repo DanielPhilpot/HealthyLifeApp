@@ -92,27 +92,27 @@
 							</tr>
 							<tr>
 								<td>Fruit & Veg %</td>
-								<td><input type="number" id="f&v" name="f&v"></td>
+								<td><input type="number" id="f&v" name="f&v" value="0" required></td>
 							</tr>
 							<tr>
 								<td>Starchy Carbohydrates %</td>
-								<td><input type="number" id="carb" name="carb"></td>
+								<td><input type="number" id="carb" name="carb" value="0" required></td>
 							</tr>
 							<tr>
 								<td>Protien %</td>
-								<td><input type="number" id="protein" name="protein"></td>
+								<td><input type="number" id="protein" name="protein" value="0" required></td>
 							</tr>
 							<tr>
 								<td>Dairy & Alternatives %</td>
-								<td><input type="number" id="dairy" name="dairy"></td>
+								<td><input type="number" id="dairy" name="dairy" value="0" required></td>
 							</tr>
 							<tr>
 								<td>Oils & Spreads %</td>
-								<td><input type="number" id="o&s" name="o&s"></td>
+								<td><input type="number" id="o&s" name="o&s" value="0" required></td>
 							</tr>
 							<tr>
 								<td>Junk Food %</td>
-								<td><input type="number" id="jF" name="jF"></td>
+								<td><input type="number" id="jF" name="jF" value="0" required></td>
 							</tr>
 						</tbody>
   					</table>

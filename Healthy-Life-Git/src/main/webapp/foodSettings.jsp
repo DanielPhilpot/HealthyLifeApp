@@ -8,6 +8,10 @@
 
 <jsp:include page="StandardImports.jsp"/>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>  
+
+
 <script type="text/javascript">
 	function validateAddActivity() {
 		let day = document.getElementById("day").value;
@@ -34,6 +38,7 @@
 	<div class="container">
 	
 	<h1>Food Settings</h1>
+	
 	<br>
 	
   		<div class="row">
@@ -44,10 +49,16 @@
   					<table>
   						<tbody>
   							<tr class="loginRow">
+  								<td>Event Type</td>
+  								<td>
+  									<select id="event" name="event">
+  										<option>Meal</option>
+  									</select>
+  							</tr>
+  							<tr class="loginRow">
 								<td>Day of the Week</td>
 								<td>
 									<select id="day" name="day">
-										<option>Select</option>
 										<option>Monday</option>
 										<option>Tuesday</option>
 										<option>Wednesday</option>
@@ -66,7 +77,6 @@
 								<td>Meal Type</td>
 								<td>
 									<select id="type" name="type">
-										<option>Select</option>
 										<option>Meal</option>
 										<option>Snack</option>
 									</select>
@@ -83,9 +93,30 @@
   				</form>
   			</div>
   			
-  			<div class="col-sm-8">
+  			<div class="col-sm-8"; style="overflow: auto">
   				<h3>Meal Schedule</h3>
-  				<p>When complete this section will display the users set meal schedule</p>
+  				<table border="1">
+  					<tr>
+  						<th>Time</th>
+  						<th>Duration</th>
+  						<th>Type</th>
+  					</tr>
+  					<tr>
+  						<th>Monday</th>
+  					</tr>
+  					
+  					<c:set scope="page" var="count" value="1"/>
+					<c:forEach var="scheduleItem" items="${user.scheduleItems}">
+						<c:if test = "${scheduleItem.value.isFood}">
+						<tr>
+							<td><c:out value="${scheduleItem.value.time}"/></td>
+							<td><c:out value="${scheduleItem.value.duration}"/></td>
+							<td><c:out value="${scheduleItem.value.snackOrLocation}"/></td>
+						</tr>	
+						</c:if>					
+					</c:forEach>
+  				
+  				</table>
   			</div>
   		</div>
   	</div>
@@ -100,31 +131,94 @@
   						<tbody>
   							<tr class="loginRow">	
   								<td>Vegetarian</td>
-  								<td><input type="checkbox" id="Vegetarian" name="Vegetarian" value="Vegetarian"></td>
+  								<td>
+  									<c:choose>
+  										<c:when test="${user.isVegiterian}">
+  											<input type='checkbox' id='Vegetarian' name='Vegetarian' value='V' checked>
+  										</c:when>
+  										<c:otherwise>
+  											<input type='checkbox' id='Vegetarian' name='Vegetarian' value='V'>
+  										</c:otherwise>
+  									</c:choose>							
+  								</td>
   							</tr>
   							<tr class="loginRow">	
   								<td>Vegan</td>
-  								<td><input type="checkbox" id="Vegan" name="Vegan" value="Vegan"></td>
+  								<td>
+  									<c:choose>
+  										<c:when test="${user.isVegan}">
+  											<input type="checkbox" id="Vegan" name="Vegan" value="VV" checked>
+  										</c:when>
+  										<c:otherwise>
+  											<input type="checkbox" id="Vegan" name="Vegan" value="VV">
+  										</c:otherwise>
+  									</c:choose>  									
+  								</td>
   							</tr>
   							<tr class="loginRow">	
   								<td>Lactose Intolerance</td>
-  								<td><input type="checkbox" id="LacInt" name="LacInt" value="LacInt"></td>
+  								<td>
+  									<c:choose>
+  										<c:when test="${user.isLactoseInt}">
+  											<input type="checkbox" id="LacInt" name="LacInt" value="L" checked>
+  										</c:when>
+  										<c:otherwise>
+  											<input type="checkbox" id="LacInt" name="LacInt" value="L">	
+  										</c:otherwise>
+  									</c:choose>  
+  								</td>								
   							</tr>
   							<tr class="loginRow">	
   								<td>Gluten Intolerance</td>
-  								<td><input type="checkbox" id="GlucInt" name="GlucInt" value="GlucInt"></td>
+  								<td>
+  									<c:choose>
+  										<c:when test="${user.isGlutenInt}">
+  											<input type="checkbox" id="GlucInt" name="GlucInt" value="G" checked>
+  										</c:when>
+  										<c:otherwise>
+  											<input type="checkbox" id="GlucInt" name="GlucInt" value="G">
+  										</c:otherwise>
+  									</c:choose>  									
+  								</td>					
   							</tr>
   							<tr class="loginRow">	
   								<td>Nut Allergy</td>
-  								<td><input type="checkbox" id="NutAlg" name="NutAlg" value="NutAlg"></td>
+  								<td>
+  									<c:choose>
+  										<c:when test="${user.isNutAlerg}">
+  											<input type="checkbox" id="NutAlg" name="NutAlg" value="N" checked>
+  										</c:when>
+  										<c:otherwise>
+  											<input type="checkbox" id="NutAlg" name="NutAlg" value="N">
+  										</c:otherwise>
+  									</c:choose>  									
+  								</td>	
   							</tr>
   							<tr class="loginRow">	
   								<td>Kosher</td>
-  								<td><input type="checkbox" id="Kosher" name="Kosher" value="Kosher"></td>
+  								<td>
+  									<c:choose>
+  										<c:when test="${user.isKosher}">
+  											<input type="checkbox" id="Kosher" name="Kosher" value="K" checked>
+  										</c:when>
+  										<c:otherwise>
+  											<input type="checkbox" id="Kosher" name="Kosher" value="K">
+  										</c:otherwise>
+  									</c:choose>  									
+  								</td>  								
   							</tr>
   							<tr class="loginRow">	
   								<td>Halal</td>
-  								<td><input type="checkbox" id="Halal" name="Halal" value="Halal"></td>
+  								<td>
+  									<c:choose>
+  										<c:when test="${user.isHalal}">
+  											<input type="checkbox" id="Halal" name="Halal" value="H" checked>
+  										</c:when>
+  										<c:otherwise>
+  											<input type="checkbox" id="Halal" name="Halal" value="H">
+  										</c:otherwise>
+  									</c:choose>  									
+  								</td>
   							</tr>
   						</tbody>
   					</table>

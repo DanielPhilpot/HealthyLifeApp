@@ -292,14 +292,13 @@
   			<div class="col-sm-6">
   				<h3>Location Settings - From Home</h3>
   				<br>
-  				<form name="dietReq" action = "SetDietReqServlet" onsubmit="return validateForm()" method = "post">
+  				<form method="POST" action="http://localhost:8080/Healthy-Life-Git/controller/setDistance"  onsubmit="return validateForm()">
   					<table>
   						<tbody>
   							<tr class="loginRow">
 								<td>Gym Distance - HR:Min</td>
 								<td>
 									<select id="gyDiHR" name="gyDiHR">
-										<option>--</option>
 										<option>00</option>
 										<option>01</option>
 										<option>02</option>
@@ -328,7 +327,6 @@
 								</td>
 								<td>
 									<select id="gyDiMi" name="gyDiMi">
-										<option>--</option>
 										<option>00</option>
 										<option>01</option>
 										<option>02</option>
@@ -396,7 +394,6 @@
 								<td>Park Distance - HR:Min</td>
 								<td>
 									<select id="pkDiHR" name="pkDiHR">
-										<option>--</option>
 										<option>00</option>
 										<option>01</option>
 										<option>02</option>
@@ -425,7 +422,6 @@
 								</td>
 								<td>
 									<select id="pkDiMi" name="pkDiMi">
-										<option>--</option>
 										<option>00</option>
 										<option>01</option>
 										<option>02</option>

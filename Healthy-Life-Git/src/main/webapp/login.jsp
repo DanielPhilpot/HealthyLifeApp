@@ -35,6 +35,7 @@
 	
 	<div style="text-align: center;">
 		<h1>Login to Healthy Life</h1>
+		<jsp:useBean class="model.User" id="user" scope="session"/>
 		<br>
 		<form method="POST" action="http://localhost:8080/Healthy-Life-Git/controller/login" onsubmit="return validateForm()">
 		<table class="center">
