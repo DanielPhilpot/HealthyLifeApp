@@ -26,6 +26,7 @@ public class User {
 	private int parkDistance;
 	
 	private HashMap <String, Meal> meals;
+	private HashMap <String, ScheduleItem> scheduleItems;
 	
 	
 	String connectionURL = "jdbc:mysql://localhost:3306/healthy_life";
@@ -34,6 +35,7 @@ public class User {
 		try {
 			
 			meals = new HashMap<String, Meal>();
+			scheduleItems = new HashMap<String, ScheduleItem>();
 			
             // Load the database driver
             Class.forName("com.mysql.jdbc.Driver");
@@ -135,6 +137,8 @@ public class User {
 		gymDistance = 0;
 		parkDistance = 0; 
 		this.setDietReqs("");
+		meals.clear();
+		scheduleItems.clear();
 	}
 	
 	public String getUsername() {
@@ -328,6 +332,10 @@ public class User {
 		return meals;
 	}
 	
+	public void addToMeals(String id, Meal m) {
+		meals.put(id, m);
+	}
+	
 	public void getUserMeals() {
 		try {
 			String query = "SELECT * FROM healthy_life.events WHERE username = '"+ username + "' AND eventType = 'meal'";
@@ -370,4 +378,36 @@ public class User {
            }
    		
 	}
+	
+	
+	//-------------------Schedule Items Code--------------------------
+	
+	public HashMap<String, ScheduleItem> getScheduleItems() {
+		return scheduleItems;
+	}
+	
+	public void addToScheduleItems(String id, ScheduleItem s) {
+		scheduleItems.put(id, s);
+	}
+	
+	public void getUserSchedule() {
+		
+		try {
+			String query = "SELECT * FROM healthy_life.scheduleitems WHERE username = '"+ username + "'";
+			System.out.println(query);
+			
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while(rs.next()) {
+            	ScheduleItem s = new ScheduleItem();
+            	s.collectItemProperties(rs.getInt(1), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7));
+            	scheduleItems.put(rs.getString(1), s);
+            }
+            
+		} catch(SQLException e) {
+            System.out.println("Exception is ;"+e + ": message is " + e.getMessage());
+        }
+	}
+	
 }

@@ -15,7 +15,7 @@
         				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Food
         				<span class="caret"></span></a>
        	 				<ul class="dropdown-menu">
-          					<li><a href="foodSettings.jsp">Food Settings</a></li>
+          					<li><a href="http://localhost:8080/Healthy-Life-Git/controller/mealSettings">Food Settings</a></li>
           					<li><a href="recordMeal.jsp">Record a Meal</a></li>
           					<li><a href="http://localhost:8080/Healthy-Life-Git/controller/mealHistory">Meal History</a></li>
         				</ul>

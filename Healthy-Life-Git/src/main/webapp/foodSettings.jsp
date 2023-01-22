@@ -7,7 +7,9 @@
 <title>Food Settings</title>
 
 <jsp:include page="StandardImports.jsp"/>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>  
 
 
 <script type="text/javascript">
@@ -47,10 +49,16 @@
   					<table>
   						<tbody>
   							<tr class="loginRow">
+  								<td>Event Type</td>
+  								<td>
+  									<select id="event" name="event">
+  										<option>Meal</option>
+  									</select>
+  							</tr>
+  							<tr class="loginRow">
 								<td>Day of the Week</td>
 								<td>
 									<select id="day" name="day">
-										<option>Select</option>
 										<option>Monday</option>
 										<option>Tuesday</option>
 										<option>Wednesday</option>
@@ -69,7 +77,6 @@
 								<td>Meal Type</td>
 								<td>
 									<select id="type" name="type">
-										<option>Select</option>
 										<option>Meal</option>
 										<option>Snack</option>
 									</select>
@@ -86,9 +93,30 @@
   				</form>
   			</div>
   			
-  			<div class="col-sm-8">
+  			<div class="col-sm-8"; style="overflow: auto">
   				<h3>Meal Schedule</h3>
-  				<p>When complete this section will display the users set meal schedule</p>
+  				<table border="1">
+  					<tr>
+  						<th>Time</th>
+  						<th>Duration</th>
+  						<th>Type</th>
+  					</tr>
+  					<tr>
+  						<th>Monday</th>
+  					</tr>
+  					
+  					<c:set scope="page" var="count" value="1"/>
+					<c:forEach var="scheduleItem" items="${user.scheduleItems}">
+						<c:if test = "${scheduleItem.value.isFood}">
+						<tr>
+							<td><c:out value="${scheduleItem.value.time}"/></td>
+							<td><c:out value="${scheduleItem.value.duration}"/></td>
+							<td><c:out value="${scheduleItem.value.snackOrLocation}"/></td>
+						</tr>	
+						</c:if>					
+					</c:forEach>
+  				
+  				</table>
   			</div>
   		</div>
   	</div>

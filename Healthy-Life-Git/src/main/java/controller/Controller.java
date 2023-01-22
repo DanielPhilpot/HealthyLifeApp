@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Time;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Event;
 import model.Meal;
+import model.ScheduleItem;
 import model.User;
 
 /**
@@ -85,7 +87,7 @@ public class Controller extends HttpServlet {
 			
 			Meal meal = new Meal();
 			String mealDateTime = request.getParameter("mealDate") + " " + request.getParameter("mealTime") + ":00" ;
-			int eventId= meal.setEventProperties(currentUser.getUsername(), mealDateTime);
+			Integer eventId= meal.setEventProperties(currentUser.getUsername(), mealDateTime);
 			
 			
 			meal.setEventSpecificProperties(
@@ -95,6 +97,10 @@ public class Controller extends HttpServlet {
 					request.getParameter("protein"), request.getParameter("dairy"), request.getParameter("o&s"), 
 					request.getParameter("jF")
 			);
+			
+			String x = eventId.toString();
+			
+			currentUser.addToMeals(x, meal);
 			
 			//System.out.println(mealDateTime);			
 			
@@ -133,12 +139,40 @@ public class Controller extends HttpServlet {
 			
 		} else if(action.equals("/addScheduleItem")) {
 			
-			//write code
-			response.sendRedirect(url + "scheduleBuilder.jsp");
+			System.out.println(request.getParameter("event"));
+			
+			if(request.getParameter("event").equals("Meal")) {
+				ScheduleItem s = new ScheduleItem();
+				
+				int day = 0;
+				switch(request.getParameter("day")) {
+					case "Monday": day = 1; break;
+					case "Tuesday": day = 2; break;
+					case "Wednesday": day = 3; break;
+					case "Thursday": day = 4; break;
+					case "Friday": day = 5; break;
+					case "Saturday": day = 6; break;
+					case "Sunday": day = 7; break;
+				}
+								
+				
+				Integer id = s.setItemProperties(currentUser.getUsername(), "food", request.getParameter("type"), day, request.getParameter("time"), request.getParameter("dur"));
+				
+				currentUser.addToScheduleItems(id.toString(), s);
+				
+				response.sendRedirect(url + "foodSettings.jsp");
+			} else{
+				response.sendRedirect(url + "welcome.jsp");
+			}
+				
 			
 		} else if(action.equals("/mealHistory")) {
 			currentUser.getUserMeals();
 			response.sendRedirect(url + "mealHistory.jsp");	
+			
+		} else if(action.equals("/mealSettings")) {
+			currentUser.getUserSchedule();
+			response.sendRedirect(url + "foodSettings.jsp");	
 		}
 			
 
